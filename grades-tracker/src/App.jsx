@@ -14,6 +14,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("name");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [subjectFilter, setSubjectFilter] = useState("all");
 
   useEffect(() => {
     localStorage.setItem("students", JSON.stringify(students));
@@ -27,9 +28,19 @@ function App() {
 
   const passed = students.filter((student) => student.grade >= 75).length;
 
-  const filteredStudents = students.filter((student) =>
-    student.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const subjectOptions = [
+    "all",
+    ...Array.from(new Set(students.map((s) => s.subject))),
+  ];
+
+  const filteredStudents = students.filter((student) => {
+    const matchesSearch = student.name
+      .toLowerCase()
+      .includes(search.toLowerCase());
+    const matchesSubject =
+      subjectFilter === "all" || student.subject === subjectFilter;
+    return matchesSearch && matchesSubject;
+  });
 
   const visibleStudents = [...filteredStudents].sort((a, b) => {
     if (sortBy === "name") {
@@ -131,12 +142,25 @@ function App() {
       <section className="table-section">
         <h2>Student Records</h2>
 
-        <input
-          type="text"
-          placeholder="Search student..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <div className="filter-bar">
+          <input
+            type="text"
+            placeholder="Search student..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
+          <select
+            value={subjectFilter}
+            onChange={(e) => setSubjectFilter(e.target.value)}
+          >
+            {subjectOptions.map((option) => (
+              <option key={option} value={option}>
+                {option === "all" ? "All Subjects" : option}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <div className="sort-controls">
           <span>Sort by:</span>
@@ -174,7 +198,7 @@ function App() {
             hint={
               students.length === 0
                 ? "Add your first student using the form above."
-                : "Try a different search term."
+                : "Try adjusting your search or filter."
             }
           />
         ) : (
