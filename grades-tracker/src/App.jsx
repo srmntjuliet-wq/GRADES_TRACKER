@@ -45,7 +45,7 @@ function App() {
       <div className="dashboard">
         <div className="card">
           <h3>Total Students</h3>
-          <h2>0</h2>
+          <h2>{students.length}</h2>
         </div>
 
         <div className="card">
@@ -84,6 +84,30 @@ function App() {
 
           <button type="submit">Add Grade</button>
         </form>
+      </section>
+
+      <section className="table-section">
+        <h2>Student Records</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Subject</th>
+              <th>Grade</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {students.map((student) => (
+              <tr key={student.id}>
+                <td>{student.name}</td>
+                <td>{student.subject}</td>
+                <td>{student.grade}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </section>
     </div>
   );
