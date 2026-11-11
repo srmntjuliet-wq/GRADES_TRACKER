@@ -48,6 +48,48 @@ header p {
   font-size: 30px;
 }
 
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card__icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  font-size: 22px;
+  background: linear-gradient(135deg, #f472b6, #ec4899);
+  color: white;
+  flex-shrink: 0;
+}
+
+.stat-card--rose .stat-card__icon {
+  background: linear-gradient(135deg, #f43f5e, #fb7185);
+}
+
+.stat-card--violet .stat-card__icon {
+  background: linear-gradient(135deg, #a855f7, #c084fc);
+}
+
+.stat-card__body h3 {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.stat-card__body h2 {
+  margin: 4px 0 0;
+  font-size: 1.7rem;
+  color: #2563eb;
+}
+
 .form-section {
   background: white;
   padding: 25px;

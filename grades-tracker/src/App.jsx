@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import StatCard from "./components/StatCard";
 
 function App() {
   const [students, setStudents] = useState(() => {
@@ -53,12 +54,7 @@ function App() {
     } else {
       setStudents([
         ...students,
-        {
-          id: Date.now(),
-          name,
-          subject,
-          grade: numericGrade,
-        },
+        { id: Date.now(), name, subject, grade: numericGrade },
       ]);
     }
 
@@ -86,20 +82,24 @@ function App() {
       </header>
 
       <div className="dashboard">
-        <div className="card">
-          <h3>Total Students</h3>
-          <h2>{students.length}</h2>
-        </div>
-
-        <div className="card">
-          <h3>Average Grade</h3>
-          <h2>{average.toFixed(2)}</h2>
-        </div>
-
-        <div className="card">
-          <h3>Passed Students</h3>
-          <h2>{passed}</h2>
-        </div>
+        <StatCard
+          label="Total Students"
+          value={students.length}
+          icon="👥"
+          accent="pink"
+        />
+        <StatCard
+          label="Average Grade"
+          value={average.toFixed(2)}
+          icon="📊"
+          accent="rose"
+        />
+        <StatCard
+          label="Passed Students"
+          value={passed}
+          icon="✅"
+          accent="violet"
+        />
       </div>
 
       <section className="form-section">
