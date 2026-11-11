@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
-  const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState(() => {
+    return JSON.parse(localStorage.getItem("students")) || [];
+  });
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
   const [grade, setGrade] = useState("");
   const [editId, setEditId] = useState(null);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("students", JSON.stringify(students));
+  }, [students]);
 
   const average =
     students.length > 0
