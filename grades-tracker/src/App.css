@@ -99,6 +99,26 @@ th {
   background: #eff6ff;
 }
 
+.passed {
+  color: #15803d;
+  font-weight: bold;
+}
+
+.failed {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #64748b;
+}
+
 @media (max-width: 768px) {
   .dashboard {
     grid-template-columns: 1fr;

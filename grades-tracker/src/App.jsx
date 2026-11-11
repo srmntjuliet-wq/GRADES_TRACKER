@@ -158,7 +158,9 @@ function App() {
                 <td>{student.name}</td>
                 <td>{student.subject}</td>
                 <td>{student.grade}</td>
-                <td>{student.grade >= 75 ? "Passed" : "Failed"}</td>
+                <td className={student.grade >= 75 ? "passed" : "failed"}>
+                  {student.grade >= 75 ? "Passed" : "Failed"}
+                </td>
                 <td>
                   <button onClick={() => editStudent(student)}>Edit</button>
                   <button onClick={() => deleteStudent(student.id)}>
@@ -170,6 +172,11 @@ function App() {
           </tbody>
         </table>
       </section>
+
+      <footer>
+        <p>Student Grades Tracker</p>
+        <p>Built with React and Vite</p>
+      </footer>
     </div>
   );
 }
