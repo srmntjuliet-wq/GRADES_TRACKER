@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import StatCard from "./components/StatCard";
 import EmptyState from "./components/EmptyState";
+import { getLetterGrade, getGradeClass } from "./utils/gradeUtils";
 
 function App() {
   const [students, setStudents] = useState(() => {
@@ -147,6 +148,7 @@ function App() {
                 <th>Name</th>
                 <th>Subject</th>
                 <th>Grade</th>
+                <th>Level</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
@@ -158,6 +160,11 @@ function App() {
                   <td>{student.name}</td>
                   <td>{student.subject}</td>
                   <td>{student.grade}</td>
+                  <td>
+                    <span className={`grade-badge ${getGradeClass(student.grade)}`}>
+                      {getLetterGrade(student.grade)}
+                    </span>
+                  </td>
                   <td className={student.grade >= 75 ? "passed" : "failed"}>
                     {student.grade >= 75 ? "Passed" : "Failed"}
                   </td>
