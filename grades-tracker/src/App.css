@@ -187,3 +187,24 @@ footer {
     min-width: 550px;
   }
 }
+
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: #64748b;
+}
+
+.empty-state__icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.empty-state h3 {
+  margin: 0 0 6px;
+  color: #1e293b;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 0.95rem;
+}

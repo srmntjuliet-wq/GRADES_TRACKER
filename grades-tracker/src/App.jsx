@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import StatCard from "./components/StatCard";
+import EmptyState from "./components/EmptyState";
 
 function App() {
   const [students, setStudents] = useState(() => {
@@ -82,24 +83,9 @@ function App() {
       </header>
 
       <div className="dashboard">
-        <StatCard
-          label="Total Students"
-          value={students.length}
-          icon="👥"
-          accent="pink"
-        />
-        <StatCard
-          label="Average Grade"
-          value={average.toFixed(2)}
-          icon="📊"
-          accent="rose"
-        />
-        <StatCard
-          label="Passed Students"
-          value={passed}
-          icon="✅"
-          accent="violet"
-        />
+        <StatCard label="Total Students" value={students.length} icon="👥" accent="pink" />
+        <StatCard label="Average Grade" value={average.toFixed(2)} icon="📊" accent="rose" />
+        <StatCard label="Passed Students" value={passed} icon="✅" accent="violet" />
       </div>
 
       <section className="form-section">
@@ -141,36 +127,51 @@ function App() {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Subject</th>
-              <th>Grade</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {filteredStudents.map((student) => (
-              <tr key={student.id}>
-                <td>{student.name}</td>
-                <td>{student.subject}</td>
-                <td>{student.grade}</td>
-                <td className={student.grade >= 75 ? "passed" : "failed"}>
-                  {student.grade >= 75 ? "Passed" : "Failed"}
-                </td>
-                <td>
-                  <button onClick={() => editStudent(student)}>Edit</button>
-                  <button onClick={() => deleteStudent(student.id)}>
-                    Delete
-                  </button>
-                </td>
+        {filteredStudents.length === 0 ? (
+          <EmptyState
+            message={
+              students.length === 0
+                ? "No students yet"
+                : "No matching students"
+            }
+            hint={
+              students.length === 0
+                ? "Add your first student using the form above."
+                : "Try a different search term."
+            }
+          />
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Grade</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {filteredStudents.map((student) => (
+                <tr key={student.id}>
+                  <td>{student.name}</td>
+                  <td>{student.subject}</td>
+                  <td>{student.grade}</td>
+                  <td className={student.grade >= 75 ? "passed" : "failed"}>
+                    {student.grade >= 75 ? "Passed" : "Failed"}
+                  </td>
+                  <td>
+                    <button onClick={() => editStudent(student)}>Edit</button>
+                    <button onClick={() => deleteStudent(student.id)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </section>
 
       <footer>
