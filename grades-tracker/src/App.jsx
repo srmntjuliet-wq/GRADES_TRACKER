@@ -6,6 +6,12 @@ function App() {
   const [subject, setSubject] = useState("");
   const [grade, setGrade] = useState("");
 
+  const average =
+    students.length > 0
+      ? students.reduce((total, student) => total + student.grade, 0) /
+        students.length
+      : 0;
+
   function addStudent(e) {
     e.preventDefault();
 
@@ -50,7 +56,7 @@ function App() {
 
         <div className="card">
           <h3>Average Grade</h3>
-          <h2>0.00</h2>
+          <h2>{average.toFixed(2)}</h2>
         </div>
 
         <div className="card">
