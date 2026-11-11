@@ -421,3 +421,65 @@ footer p { margin: 4px 0; }
   .filter-bar, .sort-controls { flex-direction: column; align-items: stretch; }
   .filter-bar select, .filter-bar input { width: 100%; }
 }
+
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.table-header h2 {
+  margin: 0;
+}
+
+.export-button {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--pink-700);
+  border: 1.5px solid var(--pink-300);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: none;
+  transition: all 0.2s;
+}
+
+.export-button:hover:not(:disabled) {
+  background: var(--pink-grad);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(236, 72, 153, 0.35);
+  transform: translateY(-1px);
+}
+
+.export-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Nicer scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(252, 231, 243, 0.4);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #f472b6, #ec4899);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #ec4899, #db2777);
+}
+
+/* Text selection */
+::selection {
+  background: rgba(244, 114, 182, 0.35);
+  color: #831843;
+}

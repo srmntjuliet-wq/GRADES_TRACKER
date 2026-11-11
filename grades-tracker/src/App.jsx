@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import StatCard from "./components/StatCard";
 import EmptyState from "./components/EmptyState";
-import { getLetterGrade, getGradeClass } from "./utils/gradeUtils";
+import {
+  getLetterGrade,
+  getGradeClass,
+  getStatusLabel,
+} from "./utils/gradeUtils";
 
 function App() {
   const [students, setStudents] = useState(() => {
@@ -97,6 +101,33 @@ function App() {
     setStudents(students.filter((student) => student.id !== id));
   }
 
+  function exportCSV() {
+    if (visibleStudents.length === 0) return;
+
+    const header = ["Name", "Subject", "Grade", "Level", "Status"];
+    const rows = visibleStudents.map((s) => [
+      s.name,
+      s.subject,
+      s.grade,
+      getLetterGrade(s.grade),
+      getStatusLabel(s.grade),
+    ]);
+
+    const csv = [header, ...rows]
+      .map((row) => row.map((cell) => `"${cell}"`).join(","))
+      .join("\n");
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "students.csv";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
+
   return (
     <div className="container">
       <header>
@@ -140,7 +171,18 @@ function App() {
       </section>
 
       <section className="table-section">
-        <h2>Student Records</h2>
+        <div className="table-header">
+          <h2>Student Records</h2>
+
+          <button
+            type="button"
+            className="export-button"
+            onClick={exportCSV}
+            disabled={visibleStudents.length === 0}
+          >
+            ⬇ Export CSV
+          </button>
+        </div>
 
         <div className="filter-bar">
           <input
@@ -226,7 +268,7 @@ function App() {
                     </span>
                   </td>
                   <td className={student.grade >= 75 ? "passed" : "failed"}>
-                    {student.grade >= 75 ? "Passed" : "Failed"}
+                    {getStatusLabel(student.grade)}
                   </td>
                   <td>
                     <button onClick={() => editStudent(student)}>Edit</button>
@@ -243,7 +285,7 @@ function App() {
 
       <footer>
         <p>Student Grades Tracker</p>
-        <p>Built with React and Vite</p>
+        <p>Built with React and Vite · 30 commits</p>
       </footer>
     </div>
   );
