@@ -1,12 +1,16 @@
-function App() {
-  return (
-    <div className="container">
-      <header>
-        <h1>Student Grades Tracker</h1>
-        <p>Manage student academic performance.</p>
-      </header>
-    </div>
-  );
-}
+<div className="dashboard">
+  <div className="card">
+    <h3>Total Students</h3>
+    <h2>0</h2>
+  </div>
 
-export default App;
+  <div className="card">
+    <h3>Average Grade</h3>
+    <h2>0.00</h2>
+  </div>
+
+  <div className="card">
+    <h3>Passed Students</h3>
+    <h2>0</h2>
+  </div>
+</div>
