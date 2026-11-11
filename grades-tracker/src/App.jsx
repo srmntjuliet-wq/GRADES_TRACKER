@@ -6,6 +6,7 @@ function App() {
   const [subject, setSubject] = useState("");
   const [grade, setGrade] = useState("");
   const [editId, setEditId] = useState(null);
+  const [search, setSearch] = useState("");
 
   const average =
     students.length > 0
@@ -14,6 +15,10 @@ function App() {
       : 0;
 
   const passed = students.filter((student) => student.grade >= 75).length;
+
+  const filteredStudents = students.filter((student) =>
+    student.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   function addStudent(e) {
     e.preventDefault();
@@ -123,6 +128,13 @@ function App() {
       <section className="table-section">
         <h2>Student Records</h2>
 
+        <input
+          type="text"
+          placeholder="Search student..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
         <table>
           <thead>
             <tr>
@@ -135,7 +147,7 @@ function App() {
           </thead>
 
           <tbody>
-            {students.map((student) => (
+            {filteredStudents.map((student) => (
               <tr key={student.id}>
                 <td>{student.name}</td>
                 <td>{student.subject}</td>
