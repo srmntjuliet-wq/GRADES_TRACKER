@@ -43,6 +43,10 @@ function App() {
     setGrade("");
   }
 
+  function deleteStudent(id) {
+    setStudents(students.filter((student) => student.id !== id));
+  }
+
   return (
     <div className="container">
       <header>
@@ -104,6 +108,7 @@ function App() {
               <th>Subject</th>
               <th>Grade</th>
               <th>Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
 
@@ -114,6 +119,11 @@ function App() {
                 <td>{student.subject}</td>
                 <td>{student.grade}</td>
                 <td>{student.grade >= 75 ? "Passed" : "Failed"}</td>
+                <td>
+                  <button onClick={() => deleteStudent(student.id)}>
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
