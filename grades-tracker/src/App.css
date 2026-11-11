@@ -75,3 +75,26 @@ button {
   border-radius: 6px;
   cursor: pointer;
 }
+
+.table-section {
+  background: white;
+  padding: 25px;
+  margin-top: 25px;
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background: #eff6ff;
+}
