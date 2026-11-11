@@ -5,6 +5,7 @@ function App() {
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
   const [grade, setGrade] = useState("");
+  const [editId, setEditId] = useState(null);
 
   const average =
     students.length > 0
@@ -29,18 +30,37 @@ function App() {
       return;
     }
 
-    const newStudent = {
-      id: Date.now(),
-      name,
-      subject,
-      grade: numericGrade,
-    };
-
-    setStudents([...students, newStudent]);
+    if (editId !== null) {
+      setStudents(
+        students.map((student) =>
+          student.id === editId
+            ? { ...student, name, subject, grade: numericGrade }
+            : student
+        )
+      );
+      setEditId(null);
+    } else {
+      setStudents([
+        ...students,
+        {
+          id: Date.now(),
+          name,
+          subject,
+          grade: numericGrade,
+        },
+      ]);
+    }
 
     setName("");
     setSubject("");
     setGrade("");
+  }
+
+  function editStudent(student) {
+    setName(student.name);
+    setSubject(student.subject);
+    setGrade(String(student.grade));
+    setEditId(student.id);
   }
 
   function deleteStudent(id) {
@@ -94,7 +114,9 @@ function App() {
             onChange={(e) => setGrade(e.target.value)}
           />
 
-          <button type="submit">Add Grade</button>
+          <button type="submit">
+            {editId !== null ? "Update Grade" : "Add Grade"}
+          </button>
         </form>
       </section>
 
@@ -120,6 +142,7 @@ function App() {
                 <td>{student.grade}</td>
                 <td>{student.grade >= 75 ? "Passed" : "Failed"}</td>
                 <td>
+                  <button onClick={() => editStudent(student)}>Edit</button>
                   <button onClick={() => deleteStudent(student.id)}>
                     Delete
                   </button>
