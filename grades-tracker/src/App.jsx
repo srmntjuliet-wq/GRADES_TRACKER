@@ -1,4 +1,9 @@
+import { useState } from "react";
+
 function App() {
+  const [students, setStudents] = useState([]);
+  const [name, setName] = useState("");
+
   return (
     <div className="container">
       <header>
@@ -27,7 +32,12 @@ function App() {
         <h2>Add Student Grade</h2>
 
         <form>
-          <input type="text" placeholder="Student Name" />
+          <input
+            type="text"
+            placeholder="Student Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
           <input type="text" placeholder="Subject" />
           <input type="number" placeholder="Grade" />
 
