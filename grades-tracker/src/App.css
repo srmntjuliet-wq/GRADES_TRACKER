@@ -98,3 +98,30 @@ td {
 th {
   background: #eff6ff;
 }
+
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 12px;
+  }
+
+  form {
+    flex-direction: column;
+  }
+
+  input,
+  button {
+    width: 100%;
+  }
+
+  .table-section {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 550px;
+  }
+}
