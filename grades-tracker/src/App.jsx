@@ -12,6 +12,8 @@ function App() {
         students.length
       : 0;
 
+  const passed = students.filter((student) => student.grade >= 75).length;
+
   function addStudent(e) {
     e.preventDefault();
 
@@ -61,7 +63,7 @@ function App() {
 
         <div className="card">
           <h3>Passed Students</h3>
-          <h2>0</h2>
+          <h2>{passed}</h2>
         </div>
       </div>
 
@@ -101,6 +103,7 @@ function App() {
               <th>Name</th>
               <th>Subject</th>
               <th>Grade</th>
+              <th>Status</th>
             </tr>
           </thead>
 
@@ -110,6 +113,7 @@ function App() {
                 <td>{student.name}</td>
                 <td>{student.subject}</td>
                 <td>{student.grade}</td>
+                <td>{student.grade >= 75 ? "Passed" : "Failed"}</td>
               </tr>
             ))}
           </tbody>
