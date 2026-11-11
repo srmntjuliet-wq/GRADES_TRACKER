@@ -223,3 +223,34 @@ footer {
 .grade-c { background: linear-gradient(135deg, #ec4899, #f472b6); }
 .grade-d { background: linear-gradient(135deg, #f472b6, #f9a8d4); color: #831843; }
 .grade-f { background: linear-gradient(135deg, #fb7185, #f43f5e); }
+
+.sort-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.sort-controls span {
+  font-weight: 600;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.sort-controls button {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  color: #475569;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sort-controls button.active {
+  background: linear-gradient(135deg, #f472b6, #ec4899);
+  color: white;
+  border-color: transparent;
+}

@@ -12,6 +12,8 @@ function App() {
   const [grade, setGrade] = useState("");
   const [editId, setEditId] = useState(null);
   const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState("name");
+  const [sortOrder, setSortOrder] = useState("asc");
 
   useEffect(() => {
     localStorage.setItem("students", JSON.stringify(students));
@@ -28,6 +30,14 @@ function App() {
   const filteredStudents = students.filter((student) =>
     student.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  const visibleStudents = [...filteredStudents].sort((a, b) => {
+    if (sortBy === "name") {
+      const cmp = a.name.localeCompare(b.name);
+      return sortOrder === "asc" ? cmp : -cmp;
+    }
+    return sortOrder === "asc" ? a.grade - b.grade : b.grade - a.grade;
+  });
 
   function addStudent(e) {
     e.preventDefault();
@@ -128,7 +138,33 @@ function App() {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        {filteredStudents.length === 0 ? (
+        <div className="sort-controls">
+          <span>Sort by:</span>
+          <button
+            type="button"
+            className={sortBy === "name" ? "active" : ""}
+            onClick={() => setSortBy("name")}
+          >
+            Name
+          </button>
+          <button
+            type="button"
+            className={sortBy === "grade" ? "active" : ""}
+            onClick={() => setSortBy("grade")}
+          >
+            Grade
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              setSortOrder(sortOrder === "asc" ? "desc" : "asc")
+            }
+          >
+            {sortOrder === "asc" ? "↑ Ascending" : "↓ Descending"}
+          </button>
+        </div>
+
+        {visibleStudents.length === 0 ? (
           <EmptyState
             message={
               students.length === 0
@@ -155,7 +191,7 @@ function App() {
             </thead>
 
             <tbody>
-              {filteredStudents.map((student) => (
+              {visibleStudents.map((student) => (
                 <tr key={student.id}>
                   <td>{student.name}</td>
                   <td>{student.subject}</td>
