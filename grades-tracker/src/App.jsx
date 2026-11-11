@@ -3,6 +3,7 @@ import { useState } from "react";
 function App() {
   const [students, setStudents] = useState([]);
   const [name, setName] = useState("");
+  const [subject, setSubject] = useState("");
 
   return (
     <div className="container">
@@ -38,7 +39,12 @@ function App() {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <input type="text" placeholder="Subject" />
+          <input
+            type="text"
+            placeholder="Subject"
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+          />
           <input type="number" placeholder="Grade" />
 
           <button type="button">Add Grade</button>
