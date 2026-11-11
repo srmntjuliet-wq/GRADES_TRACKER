@@ -6,6 +6,35 @@ function App() {
   const [subject, setSubject] = useState("");
   const [grade, setGrade] = useState("");
 
+  function addStudent(e) {
+    e.preventDefault();
+
+    if (!name.trim() || !subject.trim() || grade === "") {
+      alert("Please complete all fields.");
+      return;
+    }
+
+    const numericGrade = Number(grade);
+
+    if (!Number.isFinite(numericGrade) || numericGrade < 0 || numericGrade > 100) {
+      alert("Grade must be between 0 and 100.");
+      return;
+    }
+
+    const newStudent = {
+      id: Date.now(),
+      name,
+      subject,
+      grade: numericGrade,
+    };
+
+    setStudents([...students, newStudent]);
+
+    setName("");
+    setSubject("");
+    setGrade("");
+  }
+
   return (
     <div className="container">
       <header>
@@ -33,7 +62,7 @@ function App() {
       <section className="form-section">
         <h2>Add Student Grade</h2>
 
-        <form>
+        <form onSubmit={addStudent}>
           <input
             type="text"
             placeholder="Student Name"
@@ -53,7 +82,7 @@ function App() {
             onChange={(e) => setGrade(e.target.value)}
           />
 
-          <button type="button">Add Grade</button>
+          <button type="submit">Add Grade</button>
         </form>
       </section>
     </div>
