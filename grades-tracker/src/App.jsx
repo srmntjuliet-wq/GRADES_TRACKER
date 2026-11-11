@@ -4,6 +4,7 @@ function App() {
   const [students, setStudents] = useState([]);
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
+  const [grade, setGrade] = useState("");
 
   return (
     <div className="container">
@@ -45,7 +46,12 @@ function App() {
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
           />
-          <input type="number" placeholder="Grade" />
+          <input
+            type="number"
+            placeholder="Grade"
+            value={grade}
+            onChange={(e) => setGrade(e.target.value)}
+          />
 
           <button type="button">Add Grade</button>
         </form>
